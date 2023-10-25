@@ -1,7 +1,10 @@
-import { useState } from "react";
-import Button from "../../UI/Button";
+import { useContext, useState } from "react";
+import Button from "../../components/UI/Button";
+import AuthContext from "../../context/AuthContext";
 
-export default function SignUp() {
+export default function SignUp({ onLogin }) {
+  const authCtx = useContext(AuthContext);
+
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const [inputConfirmPassword, setInputConfirmPassword] = useState("");
@@ -17,13 +20,14 @@ export default function SignUp() {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    console.log(inputEmail);
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB6Jh0_AjPH7j6fgFJLrd-al_ICaYDKbIc",
       {
         method: "Post",
         body: JSON.stringify({
-          inputEmail,
-          inputPassword,
+          email: inputEmail,
+          password: inputPassword,
           returnSecureToken: true,
         }),
         headers: { "Content-Type": "application/json" },
@@ -34,6 +38,7 @@ export default function SignUp() {
       alert(data.error.message);
     } else {
       const data = await response.json();
+      authCtx.login(data.email, data.idToken);
       console.log("User has successfully signed up");
     }
   }
@@ -41,7 +46,12 @@ export default function SignUp() {
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <img
+          className="mx-auto h-10 w-auto"
+          src="../../../images/lockIcon.png"
+          alt="Lock Icon"
+        />
+        <h2 className="mt-8 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign Up
         </h2>
       </div>
@@ -131,7 +141,7 @@ export default function SignUp() {
           </div>
 
           <div>
-            <Button className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500">
+            <Button className="flex w-full justify-center rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-600">
               Sign Up
             </Button>
           </div>
@@ -139,12 +149,12 @@ export default function SignUp() {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Have an account?
-          <a
-            href="#"
-            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+          <Button
+            onClick={() => onLogin(true)}
+            className="font-semibold leading-6 text-cyan-600 hover:text-cyan-600"
           >
             Login
-          </a>
+          </Button>
         </p>
       </div>
     </div>
