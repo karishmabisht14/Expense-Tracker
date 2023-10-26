@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "../../components/UI/Button";
 import "./Profile.css";
 import { Icon } from "react-icons-kit";
@@ -7,14 +7,42 @@ import { user_square } from "react-icons-kit/ikons/user_square";
 import AuthContext from "../../context/AuthContext";
 
 export default function Profile() {
-  const nameRef = useRef("");
-  const imgRef = useRef("");
+  const [name, setName] = useState("");
+  const [photo, setPhoto] = useState("");
   const authCtx = useContext(AuthContext);
   const [update, setUpdate] = useState(false);
 
+  const id = localStorage.getItem(authCtx.email);
+
+  useEffect(() => {
+    async function getUserData() {
+      const response = await fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB6Jh0_AjPH7j6fgFJLrd-al_ICaYDKbIc",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            idToken: id,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        const data = await response.json();
+        console.log(data.error.message);
+      } else {
+        const data = await response.json();
+        data.users.map((x) => {
+          return setName(x.displayName), setPhoto(x.photoUrl);
+        });
+      }
+    }
+    getUserData();
+  }, [id]);
+
   async function handleSubmit(e) {
     e.preventDefault();
-    const id = localStorage.getItem(authCtx.email);
 
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyB6Jh0_AjPH7j6fgFJLrd-al_ICaYDKbIc",
@@ -22,8 +50,8 @@ export default function Profile() {
         method: "POST",
         body: JSON.stringify({
           idToken: id,
-          displayName: nameRef.current.value,
-          photoUrl: imgRef.current.value,
+          displayName: name,
+          photoUrl: photo,
           returnSecureToken: true,
         }),
         headers: { "Content-Type": "application/json" },
@@ -47,12 +75,12 @@ export default function Profile() {
           <Icon icon={github} />
           Full Name:
         </label>
-        <input type="text" id="name" name="name" ref={nameRef} />
+        <input type="text" id="name" name="name" defaultValue={name} />
         <label htmlFor="photo">
           <Icon icon={user_square} />
           Profile Photo URL:
         </label>
-        <input type="imgage" id="photo" name="photo" ref={imgRef} />
+        <input type="imgage" id="photo" name="photo" defaultValue={photo} />
         <Button type="submit">Update</Button>
       </form>
       <p>{update && "Your Profile is Successfully Updated...."}</p>

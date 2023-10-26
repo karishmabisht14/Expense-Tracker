@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 import "./NavigationBar.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function NavigationBar() {
   const [open, setOpen] = useState(false);
+
+  useEffect(function () {
+    if (window.location.pathname === "/profile") {
+      setOpen(true);
+    }
+  }, []);
 
   function handleLinkClick() {
     setOpen((prevState) => !prevState);
@@ -27,7 +33,7 @@ export default function NavigationBar() {
         <p className="changeP">
           Your Profile is 64% completed. A complete profile has higher chances
           of landing a job.
-          <Link to="*" onClick={handleLinkClick}>
+          <Link to="" onClick={handleLinkClick}>
             {" "}
             Complete now
           </Link>
