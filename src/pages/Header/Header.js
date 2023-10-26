@@ -1,8 +1,10 @@
+import NavigationBar from "../Navbar/NavigationBar";
+
 export default function Header() {
   return (
-    <>
-      <h1>Welcome to Expense Tracker</h1>
+    <header>
+      <NavigationBar />
       <hr />
-    </>
+    </header>
   );
 }

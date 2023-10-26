@@ -1,0 +1,48 @@
+.navbar {
+  margin: 10px 0px;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar p {
+  background-color: rgb(223, 211, 211);
+  border: 1px solid rgb(223, 211, 211);
+  border-radius: 5px;
+  padding: 0px 10px;
+  font-style: italic;
+}
+
+.navbar h1 {
+  font-size: 24px;
+}
+
+.changeNavbar h1 {
+  font-size: 24px;
+}
+
+.navbar p a {
+  color: blue;
+}
+.changeNavbar {
+  margin: 10px 0px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.changeNavbar p {
+  width: 300px;
+  background-color: rgb(223, 211, 211);
+  border: 1px solid rgb(223, 211, 211);
+  border-radius: 5px;
+  padding: 0px 10px;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.changeNavbar p a {
+  color: blue;
+}

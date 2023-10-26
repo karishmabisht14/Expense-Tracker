@@ -1,0 +1,72 @@
+.container {
+  display: block;
+  margin: 40px auto;
+}
+
+.container p {
+  text-align: center;
+  color: #105210;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.contact {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px 30px 0px;
+}
+
+.contact h1 {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.contact button {
+  font-weight: bold;
+  font-size: 20px;
+  padding: 0px 6px;
+  color: red;
+  border: 2px solid red;
+  border-radius: 6px;
+}
+
+form {
+  margin: 0px 50px;
+}
+form label {
+  position: relative;
+  font-size: 20px;
+  padding-left: 5px;
+}
+
+label i {
+  position: absolute;
+  top: 46%;
+  right: 95%;
+  transform: translateY(-50%);
+  padding: 0px 10px;
+}
+
+i svg {
+  height: 26px;
+  width: 26px;
+}
+
+input {
+  border: 1px solid grey;
+  margin-right: 100px;
+  margin-left: 20px;
+  padding: 5px;
+  width: 300px;
+  height: 26px;
+}
+
+form button {
+  display: block;
+  margin: 20px;
+  background-color: rgb(206, 110, 110);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
