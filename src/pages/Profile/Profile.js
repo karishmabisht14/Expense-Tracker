@@ -1,16 +1,17 @@
+import "./Profile.css";
 import { useContext, useEffect, useState } from "react";
 import Button from "../../components/UI/Button";
-import "./Profile.css";
 import { Icon } from "react-icons-kit";
 import { github } from "react-icons-kit/fa/github";
 import { user_square } from "react-icons-kit/ikons/user_square";
 import AuthContext from "../../context/AuthContext";
+import { useNavigate } from "react-router";
 
-export default function Profile() {
+export default function Profile({ onOpenProfile }) {
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
   const authCtx = useContext(AuthContext);
-  const [update, setUpdate] = useState(false);
+  const navigate = useNavigate();
 
   const id = localStorage.getItem(authCtx.email);
 
@@ -61,7 +62,9 @@ export default function Profile() {
       const data = await response.json();
       console.log(data.error.message);
     } else {
-      setUpdate(true);
+      alert("Your Profile is successfully Updated...");
+      onOpenProfile(false);
+      navigate("/");
     }
   }
   return (
@@ -83,7 +86,6 @@ export default function Profile() {
         <input type="imgage" id="photo" name="photo" defaultValue={photo} />
         <Button type="submit">Update</Button>
       </form>
-      <p>{update && "Your Profile is Successfully Updated...."}</p>
     </div>
   );
 }

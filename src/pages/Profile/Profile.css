@@ -30,16 +30,16 @@
   border-radius: 6px;
 }
 
-form {
+.container form {
   margin: 0px 50px;
 }
-form label {
+.container form label {
   position: relative;
   font-size: 20px;
   padding-left: 5px;
 }
 
-label i {
+.container label i {
   position: absolute;
   top: 46%;
   right: 95%;
@@ -47,12 +47,12 @@ label i {
   padding: 0px 10px;
 }
 
-i svg {
+.container i svg {
   height: 26px;
   width: 26px;
 }
 
-input {
+.container input {
   border: 1px solid grey;
   margin-right: 100px;
   margin-left: 20px;
@@ -61,7 +61,7 @@ input {
   height: 26px;
 }
 
-form button {
+.container form button {
   display: block;
   margin: 20px;
   background-color: rgb(206, 110, 110);

@@ -1,27 +1,57 @@
 import { Link } from "react-router-dom";
 import "./NavigationBar.css";
-import { useEffect, useState } from "react";
+import Button from "../../components/UI/Button";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
 
-export default function NavigationBar() {
-  const [open, setOpen] = useState(false);
+export default function NavigationBar({ onOpenProfile, profile }) {
+  const authCtx = useContext(AuthContext);
 
-  useEffect(function () {
-    if (window.location.pathname === "/profile") {
-      setOpen(true);
-    }
-  }, []);
+  const tokenId = authCtx.token;
 
   function handleLinkClick() {
-    setOpen((prevState) => !prevState);
+    onOpenProfile((prevState) => !prevState);
   }
+
+  function handleLogout() {
+    authCtx.logout();
+  }
+
+  async function handleVerifyEmail() {
+    const response = await fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyB6Jh0_AjPH7j6fgFJLrd-al_ICaYDKbIc",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          requestType: "VERIFY_EMAIL",
+          idToken: tokenId,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+    } else {
+      const data = await response.json();
+      console.log(data.error.message);
+    }
+  }
+
   return (
-    <nav className={!open ? "navbar" : "changeNavbar"}>
+    <nav className={!profile ? "navbar" : "changeNavbar"}>
       <h1>
-        {!open
+        {!profile
           ? "Welcome to Expense Tracker"
           : "Winners never quite, Quitters never win."}
       </h1>
-      {!open ? (
+      {!profile && <Button onClick={handleLogout}>Logout</Button>}
+      {!profile && (
+        <Button onClick={handleVerifyEmail}>Verify Your Email</Button>
+      )}
+      {!profile ? (
         <p>
           Your Profile is Incomplete.
           <Link to="/profile" onClick={handleLinkClick}>
