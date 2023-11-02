@@ -61,11 +61,10 @@ export default function NavigationBar({ onOpenProfile, profile }) {
         </p>
       ) : (
         <p className="changeP">
-          Your Profile is 64% completed. A complete profile has higher chances
-          of landing a job.
+          Your Profile is 64% completed. Update your profile to complete 100%.
           <Link to="" onClick={handleLinkClick}>
             {" "}
-            Complete now
+            Back to Home
           </Link>
         </p>
       )}

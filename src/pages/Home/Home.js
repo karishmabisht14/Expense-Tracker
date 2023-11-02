@@ -1,10 +1,6 @@
-import Auth from "../Auth/Auth";
 import Header from "../Header/Header";
 
-function Home({ isLoggedIn, onOpenProfile, profile }) {
-  if (!isLoggedIn) {
-    return <Auth />;
-  }
+function Home({ onOpenProfile, profile }) {
   return <Header profile={profile} onOpenProfile={onOpenProfile} />;
 }
 

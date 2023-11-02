@@ -4,8 +4,9 @@ import AuthContext from "../../context/AuthContext";
 import { Icon } from "react-icons-kit";
 import { eyeDisabled } from "react-icons-kit/ionicons/eyeDisabled";
 import { eye } from "react-icons-kit/ionicons/eye";
+import { Link } from "react-router-dom";
 
-export default function SignIn({ onLogin }) {
+export default function SignIn({ onLogin, onOpen }) {
   const authCtx = useContext(AuthContext);
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
@@ -47,6 +48,10 @@ export default function SignIn({ onLogin }) {
       }
       alert(errorMessage);
     }
+  }
+
+  function handleForgetPassword() {
+    onOpen(true);
   }
 
   return (
@@ -125,12 +130,13 @@ export default function SignIn({ onLogin }) {
             </Button>
           </div>
           <div className="text-sm text-center">
-            <p
-              href="#"
+            <Link
+              to="/forgetPassword"
+              onClick={handleForgetPassword}
               className="font-semibold text-cyan-600 hover:text-cyan-600"
             >
               Forget Password
-            </p>
+            </Link>
           </div>
         </form>
 

@@ -3,6 +3,8 @@ import AuthContext from "./context/AuthContext";
 import { Route, Routes } from "react-router";
 import Profile from "./pages/Profile/Profile";
 import Home from "./pages/Home/Home";
+import Auth from "./pages/Auth/Auth";
+import ForgetPassword from "./pages/Auth/ForgetPassword";
 
 export default function App() {
   const [profile, setProfile] = useState(false);
@@ -19,18 +21,40 @@ export default function App() {
   }
 
   return (
-    <>
-      <Home
-        isLoggedIn={isLoggedIn}
-        profile={profile}
-        onOpenProfile={handleProfile}
+    <Routes>
+      <Route
+        path="profile"
+        element={
+          isLoggedIn && (
+            <>
+              {
+                <Home
+                  isLoggedIn={isLoggedIn}
+                  profile={profile}
+                  onOpenProfile={handleProfile}
+                />
+              }
+              {profile && <Profile onOpenProfile={handleProfile} />}
+            </>
+          )
+        }
       />
-      <Routes>
-        <Route
-          path="profile"
-          element={isLoggedIn && <Profile onOpenProfile={handleProfile} />}
-        />
-      </Routes>
-    </>
+      <Route
+        path="/"
+        element={
+          <>
+            {isLoggedIn && (
+              <Home
+                isLoggedIn={isLoggedIn}
+                profile={profile}
+                onOpenProfile={handleProfile}
+              />
+            )}
+            {!isLoggedIn && <Auth />}
+          </>
+        }
+      />
+      <Route path="/forgetPassword" element={<ForgetPassword />} />
+    </Routes>
   );
 }

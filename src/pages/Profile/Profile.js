@@ -16,6 +16,7 @@ export default function Profile({ onOpenProfile }) {
   const id = localStorage.getItem(authCtx.email);
 
   useEffect(() => {
+    console.log("ok");
     async function getUserData() {
       const response = await fetch(
         "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB6Jh0_AjPH7j6fgFJLrd-al_ICaYDKbIc",
@@ -34,6 +35,7 @@ export default function Profile({ onOpenProfile }) {
         console.log(data.error.message);
       } else {
         const data = await response.json();
+        console.log(data);
         data.users.map((x) => {
           return setName(x.displayName), setPhoto(x.photoUrl);
         });
@@ -62,6 +64,8 @@ export default function Profile({ onOpenProfile }) {
       const data = await response.json();
       console.log(data.error.message);
     } else {
+      const data = await response.json();
+      console.log(data);
       alert("Your Profile is successfully Updated...");
       onOpenProfile(false);
       navigate("/");
