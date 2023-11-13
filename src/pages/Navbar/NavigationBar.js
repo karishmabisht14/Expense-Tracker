@@ -52,21 +52,14 @@ export default function NavigationBar({ onOpenProfile, profile }) {
         <Button onClick={handleVerifyEmail}>Verify Your Email</Button>
       )}
       {!profile ? (
-        <p>
-          Your Profile is Incomplete.
-          <Link to="/profile" onClick={handleLinkClick}>
-            {" "}
-            Complete now
-          </Link>
-        </p>
+        <Link to="/profile" onClick={handleLinkClick}>
+          Your Profile is Incomplete. Complete now
+        </Link>
       ) : (
-        <p className="changeP">
+        <Link to="/" onClick={handleLinkClick} className="changeP">
           Your Profile is 64% completed. Update your profile to complete 100%.
-          <Link to="" onClick={handleLinkClick}>
-            {" "}
-            Back to Home
-          </Link>
-        </p>
+          Back to Home
+        </Link>
       )}
     </nav>
   );

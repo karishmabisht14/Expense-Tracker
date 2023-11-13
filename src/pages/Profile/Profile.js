@@ -16,7 +16,6 @@ export default function Profile({ onOpenProfile }) {
   const id = localStorage.getItem(authCtx.email);
 
   useEffect(() => {
-    console.log("ok");
     async function getUserData() {
       const response = await fetch(
         "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB6Jh0_AjPH7j6fgFJLrd-al_ICaYDKbIc",
@@ -78,16 +77,34 @@ export default function Profile({ onOpenProfile }) {
         <Button>Cancel</Button>
       </div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">
-          <Icon icon={github} />
-          Full Name:
-        </label>
-        <input type="text" id="name" name="name" defaultValue={name} />
-        <label htmlFor="photo">
-          <Icon icon={user_square} />
-          Profile Photo URL:
-        </label>
-        <input type="imgage" id="photo" name="photo" defaultValue={photo} />
+        <div>
+          <label htmlFor="name">
+            <Icon icon={github} />
+            Full Name:
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="photo">
+            <Icon icon={user_square} />
+            Photo URL:
+          </label>
+          <input
+            type="text"
+            id="photo"
+            name="photo"
+            value={photo}
+            onChange={(e) => setPhoto(e.target.value)}
+            required
+          />
+        </div>
         <Button type="submit">Update</Button>
       </form>
     </div>

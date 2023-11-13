@@ -1,14 +1,17 @@
 .navbar {
-  margin: 10px 0px;
-  padding: 5px 20px;
+  padding: 12px 20px;
+  background-color: #e2d1f9;
+  color: #317773;
+  font-weight: 700;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0px 0px 20px 0px #e2d1f9;
 }
 
-.navbar p {
-  background-color: rgb(223, 211, 211);
-  border: 1px solid rgb(223, 211, 211);
+.navbar a {
+  color: #317773;
+  border: 2px solid #317773;
   border-radius: 5px;
   padding: 0px 10px;
   font-style: italic;
@@ -18,31 +21,48 @@
   font-size: 24px;
 }
 
+.navbar button {
+  padding: 0px 5px;
+  border: 2px solid #317773;
+  border-radius: 5px;
+}
+
+.navbar button:hover {
+  background-color: #317773;
+  color: #e2d1f9;
+}
+
+.navbar a:hover {
+  background-color: #317773;
+  color: #e2d1f9;
+}
+
 .changeNavbar h1 {
   font-size: 24px;
 }
 
-.navbar p a {
-  color: blue;
-}
 .changeNavbar {
-  margin: 10px 0px;
-  padding: 0 20px;
+  padding: 12px 20px;
+  background-color: #e2d1f9;
+  color: #317773;
+  font-weight: 700;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0px 0px 20px 0px #e2d1f9;
 }
 
-.changeNavbar p {
+.changeNavbar a {
   width: 300px;
-  background-color: rgb(223, 211, 211);
-  border: 1px solid rgb(223, 211, 211);
+  border: 2px solid #317773;
   border-radius: 5px;
   padding: 0px 10px;
+  color: #317773;
   font-style: italic;
   font-size: 12px;
 }
 
-.changeNavbar p a {
-  color: blue;
+.changeNavbar a:hover {
+  background-color: #317773;
+  color: #e2d1f9;
 }

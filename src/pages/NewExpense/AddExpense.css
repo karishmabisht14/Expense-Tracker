@@ -1,0 +1,20 @@
+.new-expense {
+  background-color: #317773;
+  width: 20%;
+  margin: 3rem auto;
+  border-radius: 5px;
+  padding: 30px;
+  text-align: center;
+  color: #e2d1f9;
+  box-shadow: 0px 0px 10px 0px #317773;
+}
+
+.new-expense button {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.new-expense:hover {
+  background-color: #e2d1f9;
+  color: #317773;
+}

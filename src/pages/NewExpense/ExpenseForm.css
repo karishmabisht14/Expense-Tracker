@@ -1,0 +1,53 @@
+.modal h1 {
+  padding: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.new-expense_controls {
+  display: block;
+  text-align: left;
+}
+
+.new-expense_control label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.new-expense_control input,
+select {
+  font: inherit;
+  padding: 0.8rem;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 100%;
+}
+
+.new-expense_actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.new-expense_actions button {
+  font: inherit;
+  cursor: pointer;
+  padding: 0.6rem 2rem;
+  margin: 10px 0px;
+  border: 1px solid #317773;
+  background-color: #317773;
+  color: #e2d1f9;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.new-expense_actions button:hover,
+.new-expense_actions button:active {
+  background-color: #e2d1f9;
+  border-color: #e2d1f9;
+  color: #317773;
+}
