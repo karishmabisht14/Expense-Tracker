@@ -18,7 +18,6 @@ export default function ExpenseForm({ onSaveExpenseData, onClose }) {
       date: dateInput.current.value,
       category: category,
     };
-    console.log(expense);
     onSaveExpenseData(expense);
   }
 

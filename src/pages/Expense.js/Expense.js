@@ -1,19 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AddExpense from "../NewExpense/AddExpense";
 import ExpenseCard from "./ExpenseCard";
+import ExpenseContext from "../../context/ExpenseContext";
 
 export default function Expense() {
-  const [expenses, setExpenses] = useState([]);
-
-  function handleAddExpense(expenseData) {
-    setExpenses((prevExpense) => {
-      return [expenseData, ...prevExpense];
-    });
-  }
+  const expenseCtx = useContext(ExpenseContext);
+  console.log(expenseCtx.expenses);
   return (
     <>
-      <AddExpense onAddExpense={handleAddExpense} />
-      {expenses.length > 0 && <ExpenseCard items={expenses} />}
+      <AddExpense />
+      {expenseCtx.expenses.length > 0 && (
+        <ExpenseCard items={expenseCtx.expenses} />
+      )}
     </>
   );
 }

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "../../components/UI/Button";
 import "./AddExpense.css";
 import ExpenseForm from "./ExpenseForm";
+import ExpenseContext from "../../context/ExpenseContext";
 
-export default function AddExpense({ onAddExpense }) {
+export default function AddExpense() {
   const [isOpen, setIsOpen] = useState(false);
+  const expenseCtx = useContext(ExpenseContext);
 
   function handleIsOpen() {
     setIsOpen(true);
@@ -19,7 +21,7 @@ export default function AddExpense({ onAddExpense }) {
       ...expenseData,
       id: Math.random().toString(),
     };
-    onAddExpense(expense);
+    expenseCtx.addExpense(expense);
     setIsOpen(false);
   }
   return (

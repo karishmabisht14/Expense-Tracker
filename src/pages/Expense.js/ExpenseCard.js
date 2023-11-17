@@ -4,10 +4,8 @@ import "./ExpenseCard.css";
 
 export default function ExpenseCard({ items }) {
   return (
-    <div>
-      <Card className="expenses">
-        <ExpenseList items={items} />
-      </Card>
-    </div>
+    <Card className="expenses">
+      <ExpenseList items={items} />
+    </Card>
   );
 }
