@@ -49,6 +49,11 @@
   border: 1px solid #fff;
 }
 
+.expense-item .actions button:hover {
+  background-color: #317773;
+  color: #e2d1f9;
+}
+
 @media (min-width: 580px) {
   .expense-item__description {
     flex-direction: row;

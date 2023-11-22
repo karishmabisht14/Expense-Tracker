@@ -1,38 +1,40 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import Button from "../../components/UI/Button";
 import "./AddExpense.css";
 import ExpenseForm from "./ExpenseForm";
 import ExpenseContext from "../../context/ExpenseContext";
 
-export default function AddExpense() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function AddExpense({ onOpen, open, isEdit }) {
   const expenseCtx = useContext(ExpenseContext);
 
-  function handleIsOpen() {
-    setIsOpen(true);
-  }
-
-  function handleClose() {
-    setIsOpen(false);
-  }
-
   function saveExpenseDataHandler(expenseData) {
-    const expense = {
-      ...expenseData,
-      id: Math.random().toString(),
-    };
-    expenseCtx.addExpense(expense);
-    setIsOpen(false);
+    if (isEdit.hasOwnProperty("key")) {
+      console.log("edit");
+      const editExpense = {
+        ...expenseData,
+        id: isEdit.id,
+      };
+      expenseCtx.addExpense(editExpense);
+    } else {
+      const expense = {
+        ...expenseData,
+        id: Math.random().toString(),
+      };
+      expenseCtx.addExpense(expense);
+    }
+    onOpen();
   }
+
   return (
     <>
       <div className="new-expense">
-        <Button onClick={handleIsOpen}>Add Expense</Button>
+        <Button onClick={onOpen}>Add Expense</Button>
       </div>
-      {isOpen && (
+      {open && (
         <ExpenseForm
           onSaveExpenseData={saveExpenseDataHandler}
-          onClose={handleClose}
+          onClose={onOpen}
+          isEdit={isEdit}
         />
       )}
     </>

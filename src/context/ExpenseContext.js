@@ -14,7 +14,10 @@ export function ExpenseProvider(props) {
   const [expenses, setExpenses] = useState([]);
 
   let userEmailId = authCtx.email;
-  userEmailId = userEmailId.replaceAll(/\.|\@/g, "");
+
+  if (authCtx.isLoggedIn) {
+    userEmailId = userEmailId.replaceAll(/\.|\@/g, "");
+  }
 
   useEffect(() => {
     async function getData() {
@@ -34,7 +37,22 @@ export function ExpenseProvider(props) {
     const newExpense = [...expenses];
     const expenseIndex = expenses.findIndex((ele) => ele.id === expense.id);
     if (expenseIndex !== -1) {
-      console.log("update");
+      const updateExpense = { ...newExpense[expenseIndex] };
+      const response = await fetch(
+        `${CONSTANTS.baseURL}/${userEmailId}/${updateExpense._id}.json`,
+        {
+          method: "PUT",
+          body: JSON.stringify(expense),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Something is wrong in edit expense");
+      }
+      newExpense[expenseIndex] = expense;
+      setExpenses([...newExpense]);
     } else {
       const response = await fetch(`${CONSTANTS.baseURL}/${userEmailId}.json`, {
         method: "POST",
@@ -45,7 +63,6 @@ export function ExpenseProvider(props) {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         expense["_id"] = data.name;
       } else {
         throw new Error("Something went wrong");
@@ -54,10 +71,29 @@ export function ExpenseProvider(props) {
     }
   }
 
+  async function deleteToExpenseHandler(expense) {
+    const newExpense = [...expenses];
+    const expenseIndex = expenses.findIndex((ele) => ele.id === expense.id);
+    const response = await fetch(
+      `${CONSTANTS.baseURL}/${userEmailId}/${expense._id}.json`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      newExpense.splice(expenseIndex, 1);
+      setExpenses([...newExpense]);
+    } else {
+      throw new Error("Something wrong in the delete expense");
+    }
+  }
   const expenseContext = {
     expenses: expenses,
     addExpense: addToExpenseHandler,
-    deleteExpense: {},
+    deleteExpense: deleteToExpenseHandler,
   };
   return (
     <ExpenseContext.Provider value={expenseContext}>

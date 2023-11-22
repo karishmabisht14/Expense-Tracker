@@ -5,12 +5,27 @@ import ExpenseContext from "../../context/ExpenseContext";
 
 export default function Expense() {
   const expenseCtx = useContext(ExpenseContext);
-  console.log(expenseCtx.expenses);
+  const [isOpen, setIsOpen] = useState(false);
+  const [edit, setEdit] = useState({});
+
+  function handleOpen() {
+    setIsOpen((prevState) => !prevState);
+    setEdit({});
+  }
+
+  function handleEdit(data) {
+    setEdit(data);
+  }
+
   return (
     <>
-      <AddExpense />
+      <AddExpense onOpen={handleOpen} open={isOpen} isEdit={edit} />
       {expenseCtx.expenses.length > 0 && (
-        <ExpenseCard items={expenseCtx.expenses} />
+        <ExpenseCard
+          items={expenseCtx.expenses}
+          onOpen={handleOpen}
+          onEdit={handleEdit}
+        />
       )}
     </>
   );

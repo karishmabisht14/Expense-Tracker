@@ -4,7 +4,7 @@ import "./ExpenseDate.css";
 export default function ExpenseDate({ date }) {
   const month = moment(date).format("MMMM");
   const year = moment(date).format("YYYY");
-  const day = moment(date).format("d");
+  const day = moment(date).format("DD");
 
   return (
     <Card className="expense-date">

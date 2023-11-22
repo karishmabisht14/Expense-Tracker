@@ -1,32 +1,32 @@
 import Modal from "../../components/UI/Modal";
 import Button from "../../components/UI/Button";
 import "./ExpenseForm.css";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import moment from "moment";
 
-export default function ExpenseForm({ onSaveExpenseData, onClose }) {
-  const descriptionInput = useRef("");
-  const amountInput = useRef("");
-  const dateInput = useRef("");
-  const [category, setCategory] = useState("");
+export default function ExpenseForm({ onSaveExpenseData, onClose, isEdit }) {
+  const [desc, setDesc] = useState(isEdit.description);
+  const [amount, setAmount] = useState(isEdit.amount);
+  const [date, setDate] = useState(isEdit.date);
+  const [category, setCategory] = useState(isEdit.category);
 
   function handleSubmit(e) {
     e.preventDefault();
     const expense = {
-      description: descriptionInput.current.value,
-      amount: amountInput.current.value,
-      date: dateInput.current.value,
+      description: desc,
+      amount: amount,
+      date: date,
       category: category,
     };
     onSaveExpenseData(expense);
   }
 
   const newDate = moment(new Date()).subtract(2, "year");
-  const date = newDate._d;
+  const formatDate = newDate._d;
 
   return (
     <Modal>
-      <h1>Add Expense</h1>
+      <h1>{isEdit.hasOwnProperty("key") ? "Edit Expense" : "Add Expense"}</h1>
       <form onSubmit={handleSubmit}>
         <div className="new-expense_controls">
           <div className="new-expense_control">
@@ -35,7 +35,8 @@ export default function ExpenseForm({ onSaveExpenseData, onClose }) {
               id="desc"
               name="desc"
               placeholder="Expense Description *"
-              ref={descriptionInput}
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
               required
             />
           </div>
@@ -45,7 +46,8 @@ export default function ExpenseForm({ onSaveExpenseData, onClose }) {
               id="amount"
               name="amount"
               placeholder="Expense Amount *"
-              ref={amountInput}
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
               required
             />
           </div>
@@ -69,14 +71,17 @@ export default function ExpenseForm({ onSaveExpenseData, onClose }) {
             <input
               type="date"
               id="date"
-              min={moment(date).format("YYYY-MM-DD")}
+              min={moment(formatDate).format("YYYY-MM-DD")}
               max={moment().format("YYYY-MM-DD")}
-              ref={dateInput}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
             />
           </div>
         </div>
         <div className="new-expense_actions">
-          <Button type="submit">Add Expense</Button>
+          <Button type="submit">
+            {isEdit.hasOwnProperty("key") ? "Edit Expense" : "Add Expense"}
+          </Button>
           <Button type="text" onClick={onClose}>
             Cancel
           </Button>
